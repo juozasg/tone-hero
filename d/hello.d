@@ -15,7 +15,12 @@ void main()
     int[] arr2 = [5, 2, 1, 10];
     int[] arr3 = [6, 8, 3];
     sort(chain(arr1, arr2, arr3));
-		sort(
+		// chain(
     writefln("%s\n%s\n%s\n", arr1, arr2, arr3);
+
+
+    auto r = iota(0, 5, 2);
+
+    writeln(r);
 
 }
