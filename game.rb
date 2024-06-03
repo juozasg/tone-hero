@@ -1,31 +1,22 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'unimidi'
-require 'midi-message'
+libdir = File.join(File.dirname(__FILE__), 'lib')
+$LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
 
-# input = UniMIDI::Input.gets
-input = UniMIDI::Input.open(0)
-
-# c3 = 48 = MIDIMessage::Constant.value('Note', 'C3')
-# name = 'C3' = MIDIMessage::Constant::Group['Note'].constants.find { |x| x.value == 48 }.key
+require 'ruby2d'
+require 'tone-hero/midi'
 
 
-NoteOn = 0x90
-NoteOff = 0x91
-
-pp NoteOn
-pp NoteOff
-
-
+input = open_midi_in
 puts "Reading MIDI from #{input.name} (#{input.id})"
-100100.times do
+loop do
 	m = input.gets
 
-	msg, note, vel = m[0][:data]
+	msg, note, _ = m[0][:data]
 
 	if(msg == NoteOn) then
-		puts "NoteOn: #{note} #{vel}"
+		puts "NoteOn: #{note_name(note)}"
 	end
 
 end
