@@ -19,18 +19,41 @@ $LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
 
 require 'java'
 
+
+
+class MidiListener
+  include javax.sound.midi.Receiver
+
+
+  def send(message, timestamp)
+    @buffer << message
+    puts "Received: #{message.get_message}"
+  end
+end
+
+# Get all MIDI devices
+
+
+
 _infos = javax.sound.midi.MidiSystem.get_midi_device_info
 infos = []
 _infos.each { |info| infos.push info if javax.sound.midi.MidiSystem.get_midi_device(info).class == Java::ComSunMediaSound::MidiInDevice}
 
-infos.each do |info|
-  device = javax.sound.midi.MidiSystem.get_midi_device(info)
-  puts "Device: #{info.get_name} #{info.get_vendor} #{info.get_version} #{info.get_description}"
-end
+# infos.each do |info|
+#   device = javax.sound.midi.MidiSystem.get_midi_device(info)
+#   puts "Device: #{info.get_name} #{info.get_vendor} #{info.get_version} #{info.get_description}"
+# end
 
 midiinfo = infos[1]
 device = javax.sound.midi.MidiSystem.get_midi_device(midiinfo)
 
 device.open
 
+trans = device.get_transmitter
+trans.set_receiver(MidiListener.new)
+
+pp trans
+
 puts "Opened MIDI IN device: #{device.getDeviceInfo.name} #{device.getDeviceInfo.get_description}"
+
+sleep
