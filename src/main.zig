@@ -1,4 +1,5 @@
 const std = @import("std");
+const assert = std.debug.assert;
 
 pub fn main() !void {
     // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
@@ -10,10 +11,15 @@ pub fn main() !void {
     const stdout_file = std.io.getStdOut().writer();
     var bw = std.io.bufferedWriter(stdout_file);
     const stdout = bw.writer();
+    // stdout_file
 
     try stdout.print("Run `zig build test` to run the tests.\n", .{});
 
     try bw.flush(); // don't forget to flush!
+
+    // const file = try std.fs.cwd().openFile("does_not_exist/foo.txt", .{});
+    // defer file.close();
+    // try file.writeAll("all your codebase are belong to us\n");
 }
 
 test "simple test" {
