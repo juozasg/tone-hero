@@ -1,9 +1,4 @@
 source "https://rubygems.org"
-# gem "unimidi"
-# gem "midi-message"
-# gem "ruby2d"
-#
+gem "midi-message"
 gem "gosu"
 gem "rtmidi"
-
-# gem "micromidi"
