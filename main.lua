@@ -12,12 +12,15 @@ function love.load()
 	-- song:play()
 
 	-- sfx is short for 'sound effect', or at least I use it like that.
-	sfx = love.audio.newSource("good.ogg", "static")
+	sfxGood = love.audio.newSource("good.ogg", "static")
+	sfxBad = love.audio.newSource("badd.ogg", "static")
 end
 
 function love.keypressed(key)
 	if key == "space" then
-			sfx:play()
+			sfxGood:play()
+	elseif key == "b" then
+			sfxBad:play()
 	end
 
 	if key == "escape" or key =="q" then
