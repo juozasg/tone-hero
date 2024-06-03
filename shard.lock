@@ -1,6 +1,0 @@
-version: 2.0
-shards:
-  port_midi:
-    git: https://github.com/jimm/crystal_port_midi.git
-    version: 0.1.1+git.commit.5f8d2cfee7513c379897add7708862ca9275964b
-
