@@ -1,6 +1,0 @@
-name "tone-hero"
-description "A minimal D application."
-authors "Juozas"
-copyright "Copyright © 2024, Juozas"
-license "CC-BY-SA-4.0"
-dependency "minuit" version="~>0.1.4"
