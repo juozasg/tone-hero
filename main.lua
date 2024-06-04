@@ -33,7 +33,7 @@ end
 function love.update(dt)
 	fps = math.floor(1/dt)
 
-	x = x + 5
+	x = x + 5 + y
 end
 
 function love.keypressed(key)
@@ -49,3 +49,14 @@ function love.keypressed(key)
 end
 
 -- love.event.quit()
+
+
+local love_errorhandler = love.errorhandler
+
+function love.errorhandler(msg)
+    if lldebugger then
+        error(msg, 2)
+    else
+        return love_errorhandler(msg)
+    end
+end
