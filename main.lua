@@ -27,6 +27,8 @@ function love.keypressed(key)
 		sound.play_good()
 	elseif key == "b" then
 		sound.play_bad()
+	elseif key == "n" then
+		sound.play_note()
 	end
 
 	if key == "escape" or key =="q" then
