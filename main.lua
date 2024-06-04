@@ -2,7 +2,7 @@ if arg[2] == "debug" then
 	require("lldebugger").start()
 end
 
-local midi = require("lib.rtmidi")
+local rmidi = require("lib.rtmidi")
 local sound = require("lib.sound")
 
 love.window.setPosition(0,0,2)
@@ -10,7 +10,7 @@ love.window.setPosition(0,0,2)
 love.window.setMode(1000, 1000, {fullscreentype="exclusive", fullscreen=false, vsync=true, minwidth=400, minheight=300})
 
 function love.load(args)
-	midi.open_port(tonumber(args[1]) or 0)
+	rmidi.open_port(tonumber(args[1]) or 0)
 end
 
 
@@ -19,7 +19,7 @@ function love.draw()
 end
 
 function love.update(dt)
-	midi.dump_buffer()
+	rmidi.dump_buffer()
 end
 
 function love.keypressed(key)
