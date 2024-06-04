@@ -91,15 +91,15 @@ local sizeptr = ffi.new("size_t[1]", {0})
 local rtmidi
 
 function MIDI.dump_buffer()
-	-- if indevice then
+	if indevice then
 
-	-- 	local ts = rtmidi.rtmidi_in_get_message(indevice, buffer, sizeptr)
-	-- 	assert(indevice.ok, ffi.string(indevice.msg))
+		local ts = rtmidi.rtmidi_in_get_message(indevice, buffer, sizeptr)
+		assert(indevice.ok, ffi.string(indevice.msg))
 
-	-- 	if sizeptr[0] > 0 then
-	-- 		print("mm", ffi.string(buffer, sizeptr[0]))
-	-- 	end
-	-- end
+		if sizeptr[0] > 0 then
+			print("mm", ffi.string(buffer, sizeptr[0]))
+		end
+	end
 end
 
 -- print("buffer", ffi.string(buffer));
