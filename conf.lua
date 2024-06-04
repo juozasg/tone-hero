@@ -1,3 +1,3 @@
 function love.conf(t)
-	t.window.display = 0
+	t.window.displayindex = 2
 end

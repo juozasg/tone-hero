@@ -2,20 +2,18 @@ if arg[2] == "debug" then
 	require("lldebugger").start()
 end
 
-
-local ffi = require("ffi")
-
-ffi.cdef[[
-int printf(const char *fmt, ...);
-]]
-ffi.C.printf("Hello C %s!\n", "world")
+local midi = require("lib.rtmidi")
+midi.testffi()
 
 
 -- function love.draw()
 -- 	love.graphics.print("Hello World!", 100, 100)
 -- end
 
-text = "Hello World!"
+local sfxGood
+local sfxBad
+
+local text = "Hello World!"
 print(text)
 
 love.window.setPosition(0,0,2)
@@ -28,11 +26,11 @@ function love.load()
 	-- song:play()
 
 	-- sfx is short for 'sound effect', or at least I use it like that.
-	sfxGood = love.audio.newSource("good.ogg", "static")
-	sfxBad = love.audio.newSource("badd.ogg", "static")
-	x = 100
+	sfxGood = love.audio.newSource("assets/good.ogg", "static")
+	sfxBad = love.audio.newSource("assets/badd.ogg", "static")
 end
 
+local x = 100
 fps = 0
 
 
@@ -47,6 +45,8 @@ function love.update(dt)
 	fps = math.floor(1/dt)
 
 	x = x + 5
+
+	midi.dump_buffer()
 end
 
 function love.keypressed(key)
