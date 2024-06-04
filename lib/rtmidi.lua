@@ -73,22 +73,22 @@ enum RtMidiApi rtmidi_out_get_current_api (RtMidiPtr device);
 int rtmidi_out_send_message (RtMidiOutPtr device, const unsigned char *message, int length);
 ]]
 
-
-function MIDI.midiDataCb(timeStamp, message, messageSize, userData)
-
-	-- local data = ffi.string(message, messageSize)
-	-- assert(indevice.ok, ffi.string(indevice.msg))
-	print("dataCallback", timeStamp, ffi.string(message, messageSize))
-	-- assert(indevice.ok, ffi.string(indevice.msg))
-
-	-- print("dataCallback", timeStamp, ffi.string(message))
-end
-
-indevice = nil
+local indevice = nil
 
 local buffer = ffi.new("unsigned char[1024]", {0})
 local sizeptr = ffi.new("size_t[1]", {0})
 local rtmidi
+
+-- TODO: argv or user selectable port
+-- local function print_midi_in_ports()
+-- 	local ports = rtmidi.rtmidi_get_port_count(indevice)
+-- 	for i=0,ports-1 do
+-- 		local buf = ffi.new("char[256]")
+-- 		local len = ffi.new("int[1]", {255})
+-- 		rtmidi.rtmidi_get_port_name(indevice, i, buf, len)
+-- 		print("Port " .. i .. ": " .. ffi.string(buf))
+-- 	end
+-- end
 
 function MIDI.dump_buffer()
 	if indevice then
@@ -102,9 +102,7 @@ function MIDI.dump_buffer()
 	end
 end
 
--- print("buffer", ffi.string(buffer));
-
-function MIDI.testffi()
+function MIDI.open_port(portNumber)
 	print("FFI os:" .. ffi.os .. " arch:" .. ffi.arch)
 
 	assert(ffi.os == "OSX", "Only OS X supported for now")
@@ -113,25 +111,27 @@ function MIDI.testffi()
 	local version = rtmidi.rtmidi_get_version()
 	print("rtmidi version " .. ffi.string(version))
 
-	-- print(ffi.C.RTMIDI_API_WINDOWS_MM)
-	-- indevice = ffi.gc(rtmidi.rtmidi_in_create(ffi.C.RTMIDI_API_MACOSX_CORE, "tone-hero", 2048), rtmidi.rtmidi_in_free)
 	indevice = rtmidi.rtmidi_in_create_default()
 
-	-- local ports = rtmidi.rtmidi_get_port_count(indevice)
-	-- for i=0,ports-1 do
-	-- 	local buf = ffi.new("char[256]")
-	-- 	local len = ffi.new("int[1]", {255})
-	-- 	rtmidi.rtmidi_get_port_name(indevice, i, buf, len)
-	-- 	print("Port " .. i .. ": " .. ffi.string(buf))
-	-- end
+	-- print_midi_in_ports()
 
+	local buf = ffi.new("char[256]")
+	local len = ffi.new("int[1]", {255})
+	rtmidi.rtmidi_get_port_name(indevice, portNumber, buf, len)
+	print("Selected MIDI IN portNumber=" .. portNumber .. ": " .. ffi.string(buf))
 
-	rtmidi.rtmidi_open_port(indevice, 1, "tone-hero midi in")
+	rtmidi.rtmidi_open_port(indevice, portNumber, "tone-hero midi in")
 	assert(indevice.ok, ffi.string(indevice.msg))
 
-
+	-- BUGGY SEGFAULT
 	-- rtmidi.rtmidi_in_set_callback(indevice, midiDataCb, nil)
-	assert(indevice.ok, ffi.string(indevice.msg))
+	-- assert(indevice.ok, ffi.string(indevice.msg))
 end
 
+
+
+
+
 return MIDI
+
+
