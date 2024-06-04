@@ -2,6 +2,15 @@ if arg[2] == "debug" then
 	require("lldebugger").start()
 end
 
+
+local ffi = require("ffi")
+
+ffi.cdef[[
+int printf(const char *fmt, ...);
+]]
+ffi.C.printf("Hello C %s!\n", "world")
+
+
 -- function love.draw()
 -- 	love.graphics.print("Hello World!", 100, 100)
 -- end
@@ -9,6 +18,9 @@ end
 text = "Hello World!"
 print(text)
 
+love.window.setPosition(0,0,2)
+
+love.window.setMode(1000, 1000, {fullscreentype="exclusive", fullscreen=false, vsync=true, minwidth=400, minheight=300})
 
 function love.load()
 	-- song = love.audio.newSource("path/to/song.ogg", "stream")
@@ -19,8 +31,9 @@ function love.load()
 	sfxGood = love.audio.newSource("good.ogg", "static")
 	sfxBad = love.audio.newSource("badd.ogg", "static")
 	x = 100
-	fps = 0
 end
+
+fps = 0
 
 
 function love.draw()
@@ -33,7 +46,7 @@ end
 function love.update(dt)
 	fps = math.floor(1/dt)
 
-	x = x + 5 + y
+	x = x + 5
 end
 
 function love.keypressed(key)
