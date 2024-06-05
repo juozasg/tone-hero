@@ -2,6 +2,7 @@ if arg[2] == "debug" then
 	require("lldebugger").start()
 end
 
+
 love.filesystem.setRequirePath("?.lua;?/init.lua;lib/?.lua;lib/?/init.lua;")
 
 require("events")
@@ -16,7 +17,6 @@ function love.load(args)
 	audio.load(args)
 	game.load(args)
 end
-
 
 function love.draw()
 	love.graphics.rectangle("line", 50, 50, 180, 150)
@@ -38,7 +38,6 @@ end
 
 -- shorthand for emiting notes that doesn't complain about unkown event type
 function love.note(note)
-	print("play note: " .. note)
 ---@diagnostic disable-next-line: param-type-mismatch
 	love.event.push("note", note)
 end

@@ -13,6 +13,9 @@ local nodeNumber = {
 	B = 11,
 }
 
+NoteOn = 0x90
+NoteOff = 0x80
+
 function MIDI_code_to_note_name(code)
 	local noteIndex = code % 12
 	local noteName = "C"

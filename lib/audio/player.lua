@@ -11,6 +11,7 @@ local Sound = {}
 
 function Sound.play_note(code)
 	local noteName = MIDI_code_to_note_name(code)
+	print("♪ " .. noteName .. " ♪")
 	local square = denver.get({waveform='square', frequency=noteName, length=0.8})
 	love.audio.setVolume(0.7)
 	square:setFilter{ type="lowpass", volume=0.5, highgain=0.4 }

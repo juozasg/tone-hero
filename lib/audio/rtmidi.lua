@@ -1,3 +1,4 @@
+require "audio.midi"
 local ffi = require("ffi")
 
 local MIDI = {}
@@ -74,9 +75,9 @@ int rtmidi_out_send_message (RtMidiOutPtr device, const unsigned char *message, 
 ]]
 
 local indevice = nil
-
 local buffer = ffi.new("unsigned char[1024]", {0})
-local sizeptr = ffi.new("size_t[1]", {0})
+
+
 local rtmidi
 
 -- TODO: argv or user selectable port
@@ -93,11 +94,23 @@ local rtmidi
 function MIDI.dump_buffer()
 	if indevice then
 
-		local ts = rtmidi.rtmidi_in_get_message(indevice, buffer, sizeptr)
-		assert(indevice.ok, ffi.string(indevice.msg))
+		local keepReading = true
+		while keepReading do
+			local sizeptr = ffi.new("size_t[1]", {1024})
 
-		if sizeptr[0] > 0 then
-			print("mm", ffi.string(buffer, sizeptr[0]))
+			local ts = rtmidi.rtmidi_in_get_message(indevice, buffer, sizeptr)
+			assert(indevice.ok, ffi.string(indevice.msg))
+
+			if sizeptr[0] > 0 then
+				-- print("mm", sizeptr[0], ffi.string(buffer, sizeptr[0]))
+				if(buffer[0] == NoteOn) then
+					-- local velocity = buffer[2]
+					local note = buffer[1]
+					love.note(note)
+				end
+			else
+				keepReading = false
+			end
 		end
 	end
 end
