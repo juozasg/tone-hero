@@ -1,8 +1,8 @@
 ---@diagnostic disable: param-type-mismatch
 
-local sound = require("lib.audio.player")
+local sound = require("audio.player")
 
-local game = require("lib.game")
+local game = require("game")
 
 function love.keypressed(key)
 	if key == "space" then

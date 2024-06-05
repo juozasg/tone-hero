@@ -1,2 +1,2 @@
-require("lib.events.keypressed")
-require("lib.events.handlers")
+require("events.keypressed")
+require("events.handlers")

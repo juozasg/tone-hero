@@ -1,4 +1,4 @@
-local sound = require("lib.audio.player")
+local sound = require("audio.player")
 
 ---@diagnostic disable-next-line: undefined-field
 function love.handlers.note(code)

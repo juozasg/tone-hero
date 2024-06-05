@@ -1,4 +1,4 @@
-local rmidi = require "lib.audio.rtmidi"
+local rmidi = require "audio.rtmidi"
 
 return {
 	update = function(dt)
