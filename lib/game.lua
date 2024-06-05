@@ -17,7 +17,8 @@ end
 function idle:update(dt)
 	self.time = self.time + dt
 
-	if self.time > 2 then
+	local waitTime = 0.1
+	if self.time > waitTime then
 		Gamestate.switch(playingChallenge)
 	end
 end
@@ -27,31 +28,51 @@ function idle:draw()
 end
 
 
+
+
 function playingChallenge:enter()
 	self.challenge = {62, 60, 60} -- note stack
 	self.noteOnTime = 0
+	print("playingChallenge:enter", dump(self.challenge))
+	self:playNextNote()
 end
 
-local noteLength = 0.8
+function playingChallenge:playNextNote()
+	local note = table.remove(self.challenge) -- pop
+	if note then love.note(note) end
+end
+
+function playingChallenge:hasRemainingNotes()
+	return #self.challenge > 0
+end
+
+local noteLength = 1.8
 
 function playingChallenge:update(dt)
-	local finishedPlaying = #self.challenge == 0 and self.noteOnTime > noteLength
-
 	if self.noteOnTime > noteLength then
-		self.noteOnTime = 0
-		if(#self.challenge > 0) then
-			local note = table.remove(self.challenge) -- pop
-			love.note(note)
+		if(self:hasRemainingNotes()) then
+			self:playNextNote()
+			self.noteOnTime = 0
+		else
+			Gamestate.switch(listeningAnswer)
 		end
 	end
 
-	if(finishedPlaying) then
-		Gamestate.switch(listeningAnswer)
-	elseif self.noteOnTime > noteLength then
-		self.noteOnTime = self.noteOnTime + dt
-	end
+	self.noteOnTime = self.noteOnTime + dt
+end
 
+function playingChallenge:draw()
+	-- love.graphics.print("Will play ... " .. dump(1), 10, 10)
+	love.graphics.print("Will play ... " .. dump(self.challenge), 10, 10)
+end
 
+function listeningAnswer:enter()
+	self.answer = {}
+end
+
+function listeningAnswer:draw()
+	-- love.graphics.print("Will play ... " .. dump(1), 10, 10)
+	love.graphics.print("Your answer " .. dump(self.answer), 10, 10)
 end
 
 return {

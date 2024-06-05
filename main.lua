@@ -5,6 +5,7 @@ end
 
 love.filesystem.setRequirePath("?.lua;?/init.lua;lib/?.lua;lib/?/init.lua;")
 
+require("dump")
 require("events")
 local audio = require("audio")
 local game = require("game")

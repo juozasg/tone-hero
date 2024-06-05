@@ -1,6 +1,6 @@
 ---@diagnostic disable: param-type-mismatch
 
-local sound = require("audio.player")
+local sound = require("lib.audio.sound-player")
 
 local game = require("game")
 
