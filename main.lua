@@ -2,8 +2,9 @@ if arg[2] == "debug" then
 	require("lldebugger").start()
 end
 
-local audio = require("lib.audio")
 require("lib.events")
+local audio = require("lib.audio")
+local game = require("lib.game")
 
 love.window.setPosition(0,0,2)
 
@@ -11,11 +12,12 @@ love.window.setMode(200, 200, {fullscreentype="exclusive", fullscreen=false, vsy
 
 function love.load(args)
 	audio.load(args)
+	game.load(args)
 end
 
 
 function love.draw()
-	love.graphics.rectangle("line", 20, 20, 180, 150)
+	love.graphics.rectangle("line", 50, 50, 180, 150)
 end
 
 function love.update(dt)
