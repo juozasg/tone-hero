@@ -2,6 +2,8 @@
 	"Lua.diagnostics.globals": [
 		"love",
 		"lldebugger",
-		"NoteOn"
+		"NoteOn",
+		"_equals",
+		"equals"
 	]
 }

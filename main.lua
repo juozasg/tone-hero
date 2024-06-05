@@ -5,7 +5,7 @@ end
 
 love.filesystem.setRequirePath("?.lua;?/init.lua;lib/?.lua;lib/?/init.lua;")
 
-require("dump")
+require("utils")
 require("events")
 local audio = require("audio")
 local game = require("game")
@@ -20,7 +20,9 @@ function love.load(args)
 end
 
 function love.draw()
-	love.graphics.rectangle("line", 50, 50, 180, 150)
+	-- love.graphics.rectangle("line", 50, 50, 180, 150)
+	love.graphics.print("R or A2 - Restart", 10, 260)
+	love.graphics.print("Q or C2 - Quit", 10, 275)
 end
 
 function love.update(dt)

@@ -1,6 +1,6 @@
 ---@diagnostic disable: param-type-mismatch
 
-local sound = require("lib.audio.sound-player")
+local sound = require("audio.sound-player")
 
 local game = require("game")
 
@@ -26,5 +26,7 @@ function love.keypressed(key)
 	elseif key == "b" then
 		print(game, type(game), game.state, type(game.state))
 		local breakhere = 1;
+	elseif key == "r" then
+		game.restart()
 	end
 end
