@@ -2,6 +2,8 @@
 
 local sound = require("lib.audio.player")
 
+local game = require("lib.game")
+
 function love.keypressed(key)
 	if key == "space" then
 		sound.play_good()
@@ -21,5 +23,8 @@ function love.keypressed(key)
 
 	if key == "escape" or key =="q" then
 		love.event.quit()
+	elseif key == "b" then
+		print(game, type(game), game.state, type(game.state))
+		local breakhere = 1;
 	end
 end
