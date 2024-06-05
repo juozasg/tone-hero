@@ -15,8 +15,10 @@ love.window.setPosition(0,0,2)
 love.window.setMode(200, 200, {fullscreentype="exclusive", fullscreen=false, vsync=true, minwidth=400, minheight=300})
 
 function love.load(args)
+	love.window.setTitle("Tone Hero - MIDI Game")
 	audio.load(args)
 	game.load(args)
+	-- love.window.showMessageBox("Instructions", "Press any key to start", "info")
 end
 
 function love.draw()
