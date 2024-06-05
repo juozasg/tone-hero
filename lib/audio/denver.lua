@@ -43,7 +43,7 @@ denver.get = function (args, ...)
     local waveform = args.waveform or 'sinus'
     local frequency = denver.noteToFrequency(args.frequency)
                       or args.frequency or 440
-    local length = args.length or 1 / frequency
+    local length = args.length or (1 / frequency)
 
     -- creating an empty sample
     local sound_data = love.sound.newSoundData(length * denver.rate,
@@ -60,7 +60,7 @@ denver.get = function (args, ...)
     -- filling the sample with values
     local amplitude = 0.2
     for i = 0, length * denver.rate - 1 do
-        sample = osc(freq, denver.rate) * amplitude
+        local sample = osc(frequency, denver.rate) * amplitude
         sound_data:setSample(i, sample)
     end
 
@@ -164,7 +164,7 @@ oscillators.pinknoise = function () -- http://www.musicdsp.org/files/pink.txt
         b3 = 0.86650 * b3 + white * 0.3104856;
         b4 = 0.55000 * b4 + white * 0.5329522;
         b5 = -0.7616 * b5 - white * 0.0168980;
-        pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+        local pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
         b6 = white * 0.115926;
         return pink * 0.11 -- (roughly) compensate for gain
     end
