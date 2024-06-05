@@ -1,5 +1,5 @@
-require 'lib.midi'
-local denver = require 'lib.denver'
+require 'lib.audio.midi'
+local denver = require 'lib.audio.denver'
 
 local sfxGood = love.audio.newSource("assets/good.ogg", "static")
 local sfxBad = love.audio.newSource("assets/badd.ogg", "static")
